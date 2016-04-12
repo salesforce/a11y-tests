@@ -1,0 +1,253 @@
+/* 
+ * Copyright (c) 2016, salesforce.com, inc.
+ * All rights reserved.
+ * Licensed under the BSD 3-Clause license. 
+ * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+ */
+
+ul {
+  margin-top: 0px;
+}
+
+nav {
+  float:left;
+  height: 100%;
+  width: 15%;
+  background-color: white;
+  box-shadow: 2px 2px 3px rgba(0,0,0,.1);
+  border-right: 1px solid rgba(0,0,0,.1);
+
+}
+nav.vertical {
+  overflow: auto;
+  position: fixed;
+  left:0;
+  top:0;
+  line-height: 200%;
+  overflow: hidden;
+  text-align: center;
+  height: 100%;
+}
+
+nav.vertical div > ul {
+  overflow: scroll;
+
+}
+
+nav.vertical > div > ul > li > a {
+
+  text-align: left;
+  background-color: white;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  color: #5a6673;
+  display: block;
+  font-size: 1vw;
+  /*font-size: 1rem;*/
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  padding-left: 20%;
+  text-decoration: none;
+  
+}
+nav.vertical > div > ul > li:first-child > a {
+ 
+}
+
+nav.vertical > div > ul > li:hover > a {
+  color: white;
+  background-color: #446CB3;/*#FF9933;/*#FBFBFB;*/
+  
+}
+
+
+@font-face {
+    font-family: myFont;
+    src: url(font/AlegreyaSans-Thin.ttf);
+}
+
+.logo {
+  height: 14vw;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+.logo > img {
+  height: 100%;
+  width: 100%;  
+}
+
+#titleBanner {
+  position: fixed;
+  top:0;
+  left: 0;
+  background-color: #446CB3;/*#FF9933; /*#0099FF; /*#70DBFF; /*#FF8080;*/
+  height: 14vw;
+  width: 100%;
+
+  -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#titleBanner > h1 {
+  position: fixed;
+  padding-left: 20%;
+  color: white;
+  text-align: center;
+  font-size: 7.5vw;
+  font-weight: 400;
+  font-family: myFont;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+#titleBanner.smaller > h1{
+  padding-left: 35%;
+margin-top: -10px;
+ top: 0;
+
+ font-size: 5.56rem;
+ font-size: 7vw;
+  -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+ #titleBanner.smaller {
+  height: 100px;
+  height: 8vw;
+  -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+body {
+  color: #5a6673;
+  background-color: rgb(250, 250, 250);
+  margin-top:300px;
+  padding-left: 400px;
+  padding-right: 200px;
+  font-family: "Open Sans", Helvetica, sans-serif;
+}
+
+code {
+  font-family: "Inconsolata", monospace;
+  font-weight: 700;
+  max-width: 40%;
+}
+
+pre code {
+  color: black;
+  font-weight: 400;
+}
+
+.hiddenText {
+  border:0!important;
+  clip:rect(0 0 0 0)!important;
+  height:1px!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  padding:0!important;
+  position: absolute!important;
+  width:1px!important;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+pre {
+  margin: 10px 0 30px 0;
+  padding: 0 18px 0 18px;
+  border-radius: 5px;
+  background-color: #EFEFEF;
+}
+
+.good {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(90, 102, 115, 0.39);
+  display: inline-block;
+}
+.bad {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(90, 102, 115, 0.39);
+  display: inline-block;
+}
+.content {
+  
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+text-align: center;
+  display: inline-block;
+}
+#testButtons{
+  
+  text-align: center;
+  position: fixed;
+  top: 30%;
+  right: 2%;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+#testButtons.smaller{
+  top:15%;
+  -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+#testButtons button{
+  padding: 8px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(90, 102, 115, 0.39);
+  background-color: rgb(250, 250, 250);
+  color:#5a6673;
+}
+
+input[type="text"]{
+  padding: 5px;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(90, 102, 115, 0.39);
+  background-color: rgb(250, 250, 250);
+  color:#5a6673;
+}
+
+#testButtons button:hover {
+  background-color: #446CB3;
+  color:white;
+}
+
+table {
+  margin: 10px 0;
+}
+
+td, th {
+  outline: 1px solid black;
+  padding: 5px;
+}

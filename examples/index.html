@@ -1,0 +1,1098 @@
+<!--
+   Copyright (c) 2016, salesforce.com, inc.
+   All rights reserved.
+   Licensed under the BSD 3-Clause license. 
+   For full license text, see LICENSE.txt file in the repo root  or https://opensource.org/licenses/BSD-3-Clause
+ -->
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Examples</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="styles.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+     $(function() {
+      $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+ 
+        if (scroll >= 200) {
+            $("#titleBanner").addClass('smaller');
+            $("#testButtons").addClass('smaller');
+        } else {
+            $("#titleBanner").removeClass("smaller");
+            $("#testButtons").removeClass("smaller");
+        }
+      });
+    });
+    </script>
+  </head>
+  <body>
+
+
+   <div id="titleBanner" >
+       <h1>
+        Accessibility Tests
+      </h1>
+       <div id="testButtons">
+        <button id="runTests" onclick="runTests();">Run Tests</button>
+        <button id="checkFunctions" onclick="checkFunctions();">checkFunctions</button>
+       </div>
+    </div>
+
+ 
+    <nav class="vertical">     
+          <div>
+          <div class="logo">
+           
+          </div>
+            <ul>
+              <li><a href="#A11Y_DOM_01">Image Description</a></li>
+              <li><a href="#A11Y_DOM_02">Field Labels</a></li>
+              <li><a href="#A11Y_DOM_03">Button Labels</a></li>
+              <li><a href="#A11Y_DOM_04">Link Text</a></li>
+              <li><a href="#A11Y_DOM_05">Color Contrast</a></li>
+              <li><a href="#A11Y_DOM_06">Iframe Titles</a></li>
+              <li><a href="#A11Y_DOM_07">Header Title Text</a></li>
+              <li><a href="#A11Y_DOM_08">Data Tables</a></li>
+              <li><a href="#A11Y_DOM_09">Fieldset and Legend</a></li>
+              <li><a href="#A11Y_DOM_10">Radio Groups</a></li>
+              <li><a href="#A11Y_DOM_11">Clickable divs</a></li>
+            </ul>
+          </div>
+    </nav>
+
+
+    <section id="A11Y_DOM_01">
+      <h2>A11Y_DOM_01: All image tags require the presence of the alt attribute.</h2>
+      <p>If the image is <strong>decorative</strong> or redundant to the text on the page, set <code>alt=""</code>. If the image is <strong>informational</strong>, set <code>alt</code> equal to a descriptive alternative for that image. Strings such as "null", "empty", "undefined", and "image" are not appropriate alt attribute values, as they don't communicate anything substantial to the user.</p>
+      
+
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+
+          <div class="content">
+            <h3>Good Examples:</h3>
+            <ul>
+              <li class="example">
+                <div class="example-live">
+                  <img id="image_pass1" src="images/img3.jpg" alt="smiling face"/>
+                </div>
+                <pre class="example-code"><code>
+&lt;!-- this image has a helpful alt attribute --&gt;
+&lt;img id="image_pass1" src="images/img3.jpg" alt="smiling face"/&gt;
+                </code></pre>
+              </li>
+              <li class="example">
+                <div class="example-live">
+                  <img id="image_pass2" src="images/img4.jpg" alt=""/>
+                </div>
+                <pre class="example-code"><code>
+&lt;!-- empty alt attribute indicates decorative image --&gt;
+&lt;img id="image_pass2" src="images/img4.jpg" alt=""/&gt;
+                </code></pre>
+              </li>
+            </ul>
+          </div>
+      </div>
+
+
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <img id="image_fail1" src="images/img1.jpg"/>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;!-- this image has no alt attribute --&gt;
+&lt;img id="image_fail1" src="images/img1.jpg"/&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <img id="image_fail2" src="images/img2.jpg" alt="image"/>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;!-- this image has an alt attribute, but it isn't helpful --&gt;
+&lt;img id="image_fail2" src="images/img2.jpg" alt="image"/&gt;
+                  </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+    </section>
+
+
+    <section id="A11Y_DOM_02">
+      <h2>A11Y_DOM_02: There must be a one-to-one relationship between labels and inputs.</h2>
+      <p>Every <code>input</code>, <code>textarea</code>, and <code>select</code> must have an associated, non-empty <code>label</code> element, which helps users of assistive technology know which input field is which. The label can be associated in one of two ways:
+      <ul>
+        <li><strong>explicit:</strong> the label has a <code>for</code> attribute whose value is the input element's id</li>
+        <li><strong>implicit:</strong> the label element wraps around the input element</li>
+      </ul>
+      The <code>label</code> tag shouldn't be used without a form field. 
+      </p>
+
+      <div class="good">
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Good Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <label>
+                      First Name
+                      <input id="input_pass1" type="text"/>
+                    </label>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;!-- input field with non-empty implicit label --&gt;
+&lt;label&gt;
+          First Name
+&lt;input id="input_pass1" type="text"/&gt;
+&lt;/label&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <label for="input_pass2">
+                      Last Name
+                    </label>
+                    <input id="input_pass2" type="text"/>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;!-- input field with non-empty explicit label --&gt;
+&lt;label for="input_pass2"&gt;
+          Last Name
+&lt;/label&gt;
+&lt;input id="input_pass2" type="text"/&gt;
+                  </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+      <h3>Bad Examples:</h3>
+      <ul>
+        <li class="example">
+          <div class="example-live">
+            <input id="input_fail1" type="text"/>
+          </div>
+          <pre class="example-code"><code>
+&lt;!-- input field with no label --&gt;
+&lt;input id="input_fail1" type="text"/&gt;
+          </code></pre>
+        </li>
+
+        <li class="example">
+          <div class="example-live">
+            <label>  
+              <input id="input_fail2" type="text"/>
+            </label>
+          </div>
+          <pre class="example-code"><code>
+&lt;!-- input field with empty implicit label --&gt;
+&lt;label&gt;  
+  &lt;input id="input_fail2" type="text"/&gt;
+&lt;/label&gt;
+          </code></pre>
+        </li>
+
+        <li class="example">
+          <div class="example-live">
+            <input id="input_fail3" type="text"/>
+            <label for="input_fail3"></label>
+          </div>
+          <pre class="example-code"><code>
+&lt;!-- input field with empty explicit label --&gt;
+&lt;input id="input_fail3" type="text"/&gt;
+&lt;label for="input_fail3"&gt;&lt;/label&gt;
+          </code></pre>
+        </li>
+
+        <li class="example">
+          <div class="example-live">
+            <label id="unassociated_label1">Do you like pizza?</label>
+            <select id="input_fail4">
+              <option>Yes</option>
+              <option>No</option>
+              <option>Maybe</option>
+            </select>
+          </div>
+          <pre class="example-code"><code>
+&lt;-- select with unassociated label --&gt;
+&lt;label id="unassociated_label1"&gt;Do you like pizza?&lt;/label&gt;
+&lt;select id="input_fail4"&gt;
+  &lt;option&gt;Yes&lt;/option&gt;
+  &lt;option&gt;No&lt;/option&gt;
+  &lt;option&gt;Maybe&lt;/option&gt;
+&lt;/select&gt;
+          </code></pre>
+        </li>
+
+        <li class="example">
+          <div class="example-live">
+            <label id="unassociated_label2">Comment</label>
+            <textarea id="input_fail5"></textarea>
+          </div>
+          <pre class="example-code"><code>
+&lt;-- textarea with unassociated label -->
+&lt;label id="unassociated_label2"&gt;Comment&lt;/label&gt;
+&lt;textarea id="input_fail5"&gt;&lt;/textarea&gt;
+          </code></pre>
+        </li>
+
+              </ul>
+          </div>
+      </div>
+    </section>
+
+    <section id="A11Y_DOM_03">
+      <h2>A11Y_DOM_03: Buttons must have non-empty text labels.</h2>
+      <p>Every button in the UI should have a non-empty string of text in them. If the button does not have any visual text (ex. it has an icon or image inside it), it still must have some hidden text for assistive technology. This can be achieved by using an <code>alt</code> attribute for the button's image or by including a text span that is visually hidden but still accessible to screen readers.</p>
+      <p>Note that "&ampnbsp;" does not count as non-empty text.</p>
+
+
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+
+          <div class="content">
+              <h3>Good Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <button id="button_pass1">
+                      <img src="images/favorite.png" alt="Favorite"/>
+                    </button>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;button id="button_pass1"&gt;
+  &lt;img src="images/favorite.png" alt="Favorite"/&gt;
+&lt;/button&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <button id="button_pass2">
+                      <img src="images/favorite.png" alt=""/>
+                      <span class="hiddenText">Favorite</span>
+                    </button>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;!-- this button has hidden text --&gt;
+&lt;button id="button_pass2"&gt;
+  &lt;img src="images/favorite.png" alt=""/&gt;
+  &lt;span class="hiddenText">Favorite&lt;/span&gt;
+&lt;/button&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <button id="button_pass3" aria-label="Favorite">
+                      <img src="images/favorite.png" alt=""/>
+                    </button>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;-- using aria-label --&gt;
+&lt;button id="button_pass3" aria-label="Favorite"&gt;
+  &lt;img src="images/favorite.png" alt=""/&gt;
+&lt;/button&gt;
+                  </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <button id="button_fail1"></button>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;-- button has nothing in it --&gt;
+&lt;button id="button_fail1"&gt;&lt;/button&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <button id="button_fail2">
+                      <img src="images/favorite.png" id="img_button_fail"/>
+                    </button>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;-- button has an image in it but no text --&gt;
+&lt;button id="button_fail2"&gt;
+  &lt;img src="images/favorite.png" id="img_button_fail"/&gt;
+&lt;/button&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                  <button id="button_fail3">
+                    <img src="images/favorite.png" alt=" "/>
+                  </button>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;-- button has an image with an empty alt --&gt;
+&lt;button id="button_fail3"&gt;
+  &lt;img src="images/favorite.png" alt=" "/&gt;
+&lt;/button&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <button id="button_fail4" aria-label=" ">
+                      <img src="images/favorite.png" alt=" "/>
+                    </button>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;-- button has an empty aria-label and its image has an empty alt --&gt;
+&lt;button id="button_fail4" aria-label=" "&gt;
+  &lt;img src="images/favorite.png" alt=" "/&gt;
+&lt;/button&gt;     
+                  </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+    </section>
+
+    <section id="A11Y_DOM_04">
+      <h2>A11Y_DOM_04: Links must have non-empty text content.</h2>
+
+
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+
+          <div class="content">
+              <h3>Good Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <a id="anchor_pass1" href="http://www.google.com">
+                      <img src="images/img3.jpg" alt=""/>
+                      <span class="hiddenText">Google</span>
+                    </a>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;a id="anchor_pass1" href="http://www.google.com"&gt;
+  &lt;img src="images/img3.jpg" alt=""/&gt;
+  &lt;span class="hiddenText"&gt;Google&lt;/span&gt;
+&lt;/a&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <a id="anchor_pass2" href="http://www.google.com">
+                      <img src="images/img3.jpg" alt="Google"/>
+                    </a>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;a id="anchor_pass2" href="http://www.google.com"&gt;
+  &lt;img src="images/img3.jpg" alt="Google"/&gt;
+&lt;/a&gt;
+                  </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <a id="anchor_fail1" href="http://www.google.com"></a>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;a id="anchor_fail1" href="http://www.google.com"&gt;&lt;/a&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <a id="anchor_fail2" href="http://www.google.com">
+                      <img src="images/img1.jpg" id="img_anchor_fail"/>
+                    </a>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;a id="anchor_fail2" href="http://www.google.com"&gt;
+  &lt;img src="images/img1.jpg" id="img_anchor_fail"/&gt;
+&lt;/a&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <a id="anchor_fail3" href="http://www.google.com">
+                      <img src="images/img1.jpg" alt=" "/>
+                    </a>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;a id="anchor_fail3" href="http://www.google.com"&gt;
+  &lt;img src="images/img1.jpg" alt=" "/&gt;
+&lt;/a&gt;
+                  </code></pre>
+                </li>
+
+              </ul>
+          </div>
+      </div>
+    </section>
+
+    <section id="A11Y_DOM_05">
+      <h2>A11Y_DOM_05: Text nodes must have color contrast of 4.5:1 for regular text or 3:1 for large text.</h2>
+      <p></p>
+
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Good Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <div id="goodContrast1" style="background-color: #c60000; color: #ffffff">Regular text with ratio 6.17:1</div>
+                    <div id="goodContrast2" style="font-size: 20px; font-weight: bold; background-color: #ff4242; color: #ffffff">Large text with ratio 3.44:1</div>
+                  </div>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <div id="badContrast1" style="background-color: #ff4242; color: #ffffff">Regular text with ratio 3.44:1</div>
+                    <div id="badContrast2" style="font-size: 20px; font-weight: bold; background-color: #ff8f0f; color: #ffffff">Large text with ratio 2.29:1</div>
+                  </div>
+                </li>
+              </ul>
+          </div>
+      </div>
+      
+    </section>
+
+    <section id="A11Y_DOM_06">
+      <h2>A11Y_DOM_06: All frames and iframes need non-empty titles.</h2>
+
+
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+
+          <div class="content">
+              <h3>Good Examples:</h3>
+              <ul>
+               <li class="example">
+                 <div class="example-live">
+                    <iframe id="iframe_pass1" title="Example.com" src="https://www.example.com"></iframe>
+                 </div>
+                 <pre class="example-code"><code>
+&lt;iframe id="iframe_pass1" title="Example.com" src="https://www.example.com"&gt;&lt;/iframe&gt;
+                 </code></pre>
+              </ul>
+              </li>
+              </ul>
+          </div>
+      </div>
+
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples:</h3>
+              <ul>
+               <li class="example">
+                 <div class="example-live">
+                    <iframe id="iframe_fail1" src="https://www.example.com"></iframe>
+                    <iframe id="iframe_fail2" title="" src="https://www.example.com"></iframe>
+                    <iframe id="iframe_fail3" title=" " src="https://www.example.com"></iframe>
+                 </div>
+                 <pre class="example-code"><code>
+&lt;iframe id="iframe_fail1" src="https://www.example.com"&gt;&lt;/iframe&gt;
+&lt;iframe id="iframe_fail2" title="" src="https://www.example.com"&gt;&lt;/iframe&gt;
+&lt;iframe id="iframe_fail3" title=" " src="https://www.example.com"&gt;&lt;/iframe&gt;
+                 </code></pre>
+              </ul>
+              </li>
+              </ul>
+          </div>
+      </div>
+
+    </section>
+
+    <section id="A11Y_DOM_07">
+      <h2>A11Y_DOM_07: The head section must have a non-empty title element.</h2>
+    </section>
+
+    <section id="A11Y_DOM_08">
+      <h2>A11Y_DOM_08: Data table cells must be associated with data table headers.</h2>
+
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+
+          <div class="content">
+              <h3>Good Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <table id="tableWithNoHeader_P">
+                      <tr>
+                        <td>January</td>
+                        <td>2008</td>
+                      </tr>
+                    </table>
+                    <table id="tableWithThScopeSetNoTDs_P">
+                      <tr>
+                        <th scope="col">Month</th>
+                        <th scope="col">Year</th>
+                      </tr>
+                    </table>
+                    <table id="tableWithThIdSetNoTD_P">
+                      <tr>
+                        <th id="month">Month</th>
+                        <th id="month">Year</th>
+                      </tr>
+                    </table>
+                    <table id="tableWithTHScopedWithTDS_P">
+                      <tr>
+                        <th scope="col">Month</th>
+                        <th scope="col">Year</th>
+                      </tr>
+                      <tr>
+                        <td>January</td>
+                        <td>2008</td>
+                     </tr>
+                     </table>
+                    <table id="tableWithThAndTdsSet_P"> 
+                      <tr> 
+                        <th rowspan="2" id="h">Homework</th> 
+                        <th colspan="3" id="e">Exams</th> 
+                        <th colspan="3" id="p">Projects</th> 
+                      </tr> 
+                      <tr> 
+                        <th id="e1" headers="e">1</th> 
+                        <th id="e2" headers="e">2</th> 
+                        <th id="ef" headers="e">Final</th> 
+                        <th id="p1" headers="p">1</th> 
+                        <th id="p2" headers="p">2</th> 
+                        <th id="pf" headers="p">Final</th> 
+                       </tr> 
+                       <tr> 
+                        <td headers="h">15%</td> 
+                        <td headers="e e1">15%</td> 
+                        <td headers="e e2">15%</td> 
+                        <td headers="e ef">20%</td> 
+                        <td headers="p p1">10%</td> 
+                        <td headers="p p2">10%</td> 
+                        <td headers="p pf">15%</td> 
+                       </tr> 
+                    </table>
+                  </div>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <table>
+                      <tr> 
+                        <th rowspan="2" id="h">Homework</th> 
+                        <th colspan="3" id="e">Exams</th> 
+                        <th colspan="3" id="p">Projects</th> 
+                      </tr> 
+                      <tr> 
+                        <th id="e1" headers="e">1</th> 
+                        <th id="e2" headers="e">2</th> 
+                        <th id="ef" headers="e">Final</th> 
+                        <th id="p1" headers="p">1</th> 
+                        <th id="p2" headers="p">2</th> 
+                        <th id="pf" headers="p">Final</th> 
+                      </tr> 
+                      <tr> 
+                        <td headers="h">15%</td> 
+                        <td headers="e e1">15%</td> 
+                        <td class="tableWithTdUsingWrongId_F" headers="e e3">15%</td> 
+                        <td headers="e ef">20%</td> 
+                        <td headers="p p1">10%</td> 
+                        <td headers="p p2">10%</td> 
+                        <td headers="p pf">15%</td> 
+                      </tr> 
+                    </table>
+                    <table>
+                      <tr> 
+                        <th rowspan="2" id="h">Homework</th> 
+                        <th colspan="3" id="e">Exams</th> 
+                        <th colspan="3" id="p">Projects</th> 
+                      </tr> 
+                      <tr> 
+                        <th id="e1" headers="e">1</th> 
+                        <th id="e2" headers="e">2</th> 
+                        <th id="ef" headers="e">Final</th> 
+                        <th id="p1" headers="p">1</th> 
+                        <th id="p2" headers="p">2</th> 
+                        <th id="pf" headers="p">Final</th> 
+                      </tr> 
+                      <tr> 
+                        <td headers="h">15%</td> 
+                        <td headers="e e1">15%</td> 
+                        <td headers="e e2">15%</td> 
+                        <td headers="e ef">20%</td> 
+                        <td class="tableWithTdsWithNoHeader_F">10%</td> 
+                        <td headers="p p2">10%</td> 
+                        <td headers="p pf">15%</td> 
+                      </tr> 
+                    </table>
+                    <table>
+                      <tr> 
+                        <th rowspan="2" class="tableWithHeaderWoId_F">Homework</th> 
+                        <th colspan="3" id="e">Exams</th> 
+                        <th colspan="3" id="p">Projects</th> 
+                      </tr> 
+                      <tr> 
+                        <th id="e1" headers="e">1</th> 
+                        <th id="e2" headers="e">2</th> 
+                        <th id="ef" headers="e">Final</th> 
+                        <th id="p1" headers="p">1</th> 
+                        <th id="p2" headers="p">2</th> 
+                        <th id="pf" headers="p">Final</th> 
+                      </tr> 
+                      <tr> 
+                        <td headers="e">15%</td> 
+                        <td headers="e e1">15%</td> 
+                        <td headers="e e2">15%</td> 
+                        <td headers="e ef">20%</td> 
+                        <td headers="p p1">10%</td> 
+                        <td headers="p p2">10%</td> 
+                        <td headers="p pf">15%</td> 
+                      </tr> 
+                    </table>
+                    <table>
+                      <tr>
+                        <th scope="col">Month</th>
+                        <th class="tableWithMixedScopeSetInHeader_F">Year</th>
+                      </tr>
+                      <tr>
+                        <td>January</td>
+                        <td>2008</td>
+                      </tr>
+                    </table>
+                    <table>
+                      <tr>
+                        <th class="tableWithNoScope_F">Month</th>
+                      </tr>
+                      <tr>                
+                        <td>January</td>
+                      </tr>
+                    </table>
+                    <table>
+                      <tr>
+                        <th class="tableWithWrongScopeValue_F" scope="column">Month</th>
+                      </tr>
+                      <tr>
+                        <td>January</td>
+                      </tr>
+                    </table>
+                  </div>
+                </li>
+              </ul>
+          </div>
+      </div>
+    </section>
+
+    <section id="A11Y_DOM_09">
+      <h2>A11Y_DOM_09: Fieldset must have a legend element.</h2>
+
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+
+          <div class="content">
+              <h3>Good Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <fieldset id="fieldSetPass">
+                      <legend>Legend:</legend>
+                      <input id="inputSafe0" type="text"/>
+                      <label for="inputSafe0">Pass</label>
+                    </fieldset>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;fieldset id="fieldSetPass"&gt;
+  &lt;legend&gt;Legend:&lt;/legend&gt;
+  &lt;input id="inputSafe0" type="text"/&gt;
+  &lt;label for="inputSafe0"&gt;Pass&lt;/label&gt;
+&lt;/fieldset&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <!-- this won't be visible to anyone, but it's at least proper code -->
+                    <fieldset id="fieldSetDisplayNone" style="display: none;">   
+                      <legend>Legend:</legend>
+                      <input id="inputSafe1" type="text"/>
+                      <label for="inputSafe1">Invi Mode!</label>
+                    </fieldset>
+                  </div>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <fieldset id="fieldSetNoLegend">
+                      <input id="inputSafe2" type="text"/>
+                      <label for="inputSafe2">Fail</label>
+                    </fieldset>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;-- no legend --&gt;
+&lt;fieldset id="fieldSetNoLegend">
+  &lt;input id="inputSafe2" type="text"/&gt;
+  &lt;label for="inputSafe2"&gt;Fail&lt;/label&gt;
+&lt;/fieldset&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <fieldset id="fieldSetEmptyLegend"   
+                      <legend></legend>
+                      <input id="inputSafe3" type="text"/>
+                      <label for="inputSafe3">Empty</label>
+                    </fieldset>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;-- empty legend --&gt;
+&lt;fieldset id="fieldSetEmptyLegend"&gt;
+  &lt;legend&gt;&lt;/legend&gt;
+  &lt;input id="inputSafe3" type="text"/&gt;
+  &lt;label for="inputSafe3"&gt;Empty&lt;/label&gt;
+&lt;fieldset&gt; 
+                  </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+    </section>
+
+    <section id="A11Y_DOM_10">
+      <h2>A11Y_DOM_10: Radio buttons and checkboxes should be grouped within fieldsets.</h2>
+
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+
+          <div class="content">
+              <h3>Good Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <fieldset id="radioGrpGood">
+                      <legend>Do you like pizza?</legend>
+                      <label>
+                        <input type="radio" id="rad1" name="pizza" value="yes">Yes
+                      </label>
+                      <br>
+                      <label>
+                        <input type="radio" id="rad2" name="pizza" value="no">No
+                      </label>
+                    </fieldset>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;fieldset id="radioGrpGood"&gt;
+  &lt;legend>Do you like pizza?&lt;/legend&gt;
+  &lt;label&gt;
+    &lt;input type="radio" id="rad1" name="pizza" value="yes"&gt;Yes
+  &lt;/label&gt;
+  &lt;br&gt;
+  &lt;label&gt;
+    &lt;input type="radio" id="rad2" name="pizza" value="no"&gt;No
+  &lt;/label&gt;
+&lt;/fieldset&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <fieldset id="checkboxGrpGood">
+                     <legend>Select pizza toppings</legend>
+                      <label>
+                        <input type="checkbox" id="chkbx1" name="topping" value="pepperoni">Pepperoni
+                      </label>
+                      <br>
+                      <label>
+                        <input type="checkbox" id="chkbx2" name="topping" value="olives">Olives
+                      </label>
+                    </fieldset>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;fieldset id="checkboxGrpGood"&gt;
+  &lt;legend&gt;Select pizza toppings&lt;/legend&gt;
+  &lt;label&gt;
+    &lt;input type="checkbox" id="chkbx1" name="topping" value="pepperoni"&gt;Pepperoni
+  &lt;/label&gt;
+  &lt;br&gt;
+  &lt;label&gt;
+    &lt;input type="checkbox" id="chkbx2" name="topping" value="olives"&gt;Olives
+  &lt;/label&gt;
+&lt;/fieldset&gt;
+                  </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <div id="radioGrpBad">
+                      <label>
+                        <input type="radio" id="radbad1" name="bad" value="no">Yes
+                      </label>
+                      <br>
+                      <label>
+                        <input type="radio" id="radbad2" name="bad" value="no">No
+                      </label>
+                    </div>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;div id="radioGrpBad"&gt;
+  &lt;label&gt;
+    &lt;input type="radio" id="radbad1" name="bad" value="no"&gt;Yes
+  &lt;/label&gt;
+  &lt;br&gt;
+  &lt;label&gt;
+    &lt;input type="radio" id="radbad2" name="bad" value="no"&gt;No
+  &lt;/label&gt;
+&lt;/div&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <div id="radioGrpBad2">
+                      <label>
+                        <input type="radio" id="radbad3" name="grouped" value="yes">Yes<br>
+                      </label>
+                      <fieldset id="oneradio">
+                        <legend>Group:</legend>
+                        <label>
+                          <input type="radio" id="rad4" name="grouped" value="no">No
+                        </label>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;div id="radioGrpBad2"&gt;
+  &lt;label&gt;
+    &lt;input type="radio" id="radbad3" name="grouped" value="yes"&gt;Yes
+  &lt;/label&gt;
+  &lt;br&gt;
+  &lt;fieldset id="oneradio"&gt;
+    &lt;legend&gt;Group:&lt;/legend&gt;
+    &lt;label&gt;
+      &lt;input type="radio" id="rad4" name="grouped" value="no"&gt;No
+    &lt;/label&gt;
+  &lt;/fieldset&gt;
+&lt;/div&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <div id="checkboxGrpBad">
+                      <label>
+                        <input type="checkbox" id="chkbxbad1" name="toppings2" value="pepperoni">Pepperoni
+                      </label>
+                      <br>
+                      <label>
+                        <input type="checkbox" id="chkbxbad2" name="toppings2" value="olives">Olives
+                      </label>
+                    </div>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;div id="checkboxGrpBad"&gt;
+  &lt;label&gt;
+    &lt;input type="checkbox" id="chkbxbad1" name="toppings2" value="pepperoni"&gt;Pepperoni
+  &lt;/label&gt;
+  &lt;br&gt;
+  &lt;label&gt;
+    &lt;input type="checkbox" id="chkbxbad2" name="toppings2" value="olives"&gt;Olives
+  &lt;/label&gt;
+&lt;/div&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <div id="checkboxGrpBad2">
+                      <fieldset id="onecheckbox">
+                        <legend>Select toppings:</legend>
+                        <label>
+                          <input type="checkbox" id="chkbxbad3" name="toppings3" value="pepperoni">Pepperoni
+                        </label>
+                      </fieldset>
+                      <br>
+                      <label>
+                        <input type="checkbox" id="chkbxbad4" name="toppings3" value="olives">Olives
+                      </label>       
+                    </div>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;div id="checkboxGrpBad2"&gt;
+  &lt;fieldset id="onecheckbox"&gt;
+    &lt;legend&gt;Select toppings:&lt;/legend&gt;
+    &lt;label&gt;
+      &lt;input type="checkbox" id="chkbxbad3" name="toppings3" value="pepperoni"&gt;Pepperoni
+    &lt;/label&gt;
+  &lt;/fieldset&gt;
+  &lt;br&gt;
+  &lt;label&gt;
+    &lt;input type="checkbox" id="chkbxbad4" name="toppings3" value="olives"&gt;Olives
+  &lt;/label&gt;     
+&lt;/div&gt;
+                  </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+    </section>
+
+    <section id="A11Y_DOM_11">
+      <h2>A11Y_DOM_11: Non-interactive DOM elements should not have onclick events.</h2>
+      <p>Onclick events should only be attached to the following HTML elements: <code>a</code>, <code>button</code>, <code>input</code>, <code>canvas</code>.</p>
+
+      <p>Clickable divs, spans, and other non-actionable elements should not be made clickable, as it is impossible for users of various assistive technology to click them. You can wrap an anchor (<code>&lt;a&gt;</code>) tag around an element and assign your element and assign the onclick event to the anchor. Another workaround is to add a child anchor tag and attach the same onclick event to the anchor if you want to keep onclick event on your elements.
+
+      <div style="float:right">
+        Click Counter: <span id="counter">0</span>
+      </div>
+      
+      <div class="good">
+      
+          <img src="images/tick.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+          <h3>Good Examples:</h3>
+      <ul>
+        <li class="example">
+          <div class="example-live">
+            <button id="buttonOnClick" onclick="clicked()">Click this button</button>
+          </div>
+          <pre class="example-code"><code>
+&lt;button id="buttonOnClick" onclick="clicked()"&gt;Click this button&lt;/button&gt;
+          </code></pre>
+        </li>
+        <li class="example">
+          <div class="example-live">
+            <div><a href="javascript:void()" onclick="clicked()">anchor onclick</a></div> 
+          </div>
+          <pre class="example-code"><code>
+&lt;div&gt;
+  &lt;a href="javascript:void()" onclick="clicked()"&gt;anchor onclick&lt;/a&gt;
+&lt;/div&gt; 
+          </code></pre>
+        </li>
+      </ul>
+
+          </div>
+      </div>
+
+
+      <div class="bad">
+          <img src="images/close.svg" alt="tick mark" style="float:right;height:30px;padding-right:20px;padding-top:20px"/>
+          <div class="content">
+              <h3>Bad Examples:</h3>
+              <ul>
+                <li class="example">
+                  <div class="example-live">
+                    <div id="divOnClick" onclick="clicked()">Click this div</div>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;div id="divOnClick" onclick="clicked()"&gt;Click this div&lt;/div&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <span id="spanOnClick" onClick="clicked()">Click this span</span>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;span id="spanOnClick" onClick="clicked()"&gt;Click this span&lt;/span&gt;
+                  </code></pre>
+                </li>
+                <li class="example">
+                  <div class="example-live">
+                    <fieldset id="fieldsetOnClick" onClick="clicked()">
+                      <legend>Click anywhere in this fieldset</legend>
+                      Don't be shy
+                    </fieldset>
+                  </div>
+                  <pre class="example-code"><code>
+&lt;fieldset id="fieldsetOnClick" onClick="clicked()"&gt;
+  &lt;legend&gt;Click anywhere in this fieldset&lt;/legend&gt;
+  Don't be shy
+&lt;/fieldset&gt;
+              </code></pre>
+                </li>
+              </ul>
+          </div>
+      </div>
+    
+      <script>
+         function clicked() {
+          var elem = document.getElementById("counter");
+          var val = parseInt(elem.innerText);
+          val++;
+          elem.innerText = val; 
+          } 
+      </script>
+
+
+    </section>
+        
+
+  </body>
+  <script src="../a11y.js"></script>
+  <script src="test.js"></script>
+</html>
