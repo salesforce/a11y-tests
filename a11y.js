@@ -60,7 +60,7 @@ window.$A11y = {
         "A11Y_DOM_02": "There must be a one-to-one relationship between labels and inputs.",
         "A11Y_DOM_03": "Buttons must have non-empty text labels.",
         "A11Y_DOM_04": "Links must have non-empty text content.",
-        //"A11Y_DOM_05": "Text nodes must have color contrast of 4.5:1 for regular text or 3:1 for large text.",
+        "A11Y_DOM_05": "Text nodes must have color contrast of 4.5:1 for regular text or 3:1 for large text.",
         "A11Y_DOM_06": "All frames and iframes need non-empty titles.",
         "A11Y_DOM_07": "The head section must have a non-empty title element.",
         "A11Y_DOM_08": "Data table cells must be associated with data table headers.",
@@ -461,11 +461,11 @@ window.$A11y = {
                         switch(alpha) {
                             // element has opaque background color
                             case undefined:
-                            case 1:
+                            case "1":
                                 found = true;
                                 break;
                             // element has transparent background color
-                            case 0:
+                            case "0":
                                 element = element.parentNode;
                                 break;
                             // element has semi-transparent background color
