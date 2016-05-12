@@ -339,7 +339,7 @@ window.$A11y = {
         _getComputedStyle : function(element) {
             var defaultView, style;
             defaultView = document.defaultView || window;
-            if (defaultView.getComputedStyle) {
+            if (defaultView.getComputedStyle && element instanceof Element)  {
                 style = document.defaultView.getComputedStyle(element, null);
             }
 
@@ -518,7 +518,7 @@ window.$A11y = {
 
             // special class that hides the element far off screen,
             // so it's accessible to screenreaders but not visible
-            if(hiddenTextClass && element.className && element.className.indexOf(hiddenTextClass) > -1) {
+            if(hiddenTextClass && element.className && element.className.indexOf && element.className.indexOf(hiddenTextClass) > -1) {
                 isVisible = false;
             }
 
@@ -797,7 +797,9 @@ window.$A11y = {
                 for(var i = 0; i < anchors.length; i++) {
                     anchor = anchors[i];
                     // check that the anchor contains text or an image with alt text
-                    if($A11y.util._hasEmptyText(anchor) && !$A11y.util._elementContainsImageWithNonEmptyAlt(anchor)) {
+                    if($A11y.util._hasEmptyText(anchor) 
+                        && !$A11y.util._elementContainsImageWithNonEmptyAlt(anchor) 
+                        && $A11y.util._getElementsByTagName("svg", anchor).length == 0) {
                         errorArray.push(anchor);
                     }
                 }
@@ -829,7 +831,7 @@ window.$A11y = {
                             parentNode = element.parentNode;
                             if(parentNode
                                && parentNode.nodeName.toUpperCase() !== "SCRIPT" 
-                               && parentNode.nodeName.toUpperCase() !== "STYLE" 
+                               && parentNode.nodeName.toUpperCase() !== "STYLE"
                                && $A11y.util._isElementVisible(parentNode)) {
                                 textNodes.push(parentNode);
                             }
@@ -840,7 +842,7 @@ window.$A11y = {
                             getTextNodes(element.childNodes[i]);
                         }
                     }
-                }
+                }//End of getTextNodes
 
                 getTextNodes(domElem);
                 for(var i = 0; i < textNodes.length; i++) {
