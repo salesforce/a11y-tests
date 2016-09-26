@@ -824,6 +824,10 @@ window.$A11y = {
                         }
                     }
 
+                    if(element.nodeName.toLowerCase() == "a" 
+                        && $A11y.util._getElementsByTagName("svg", element).length != 0 ){
+                        return;
+                    }
                     // if this is a text node
                     if(element.nodeType == Node.TEXT_NODE || element.nodeType == 3) {
                         // check that it has text in it and is visible in viewport
